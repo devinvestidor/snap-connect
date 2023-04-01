@@ -28,20 +28,16 @@ export const onRpcRequest: OnRpcRequestHandler = ({ origin, request }) => {
       
       console.log('KARAN')
 
+
       return snap.request({
         method: 'snap_dialog',
         params: {
-          type: 'Confirmation',
-          content: panel([
-            text(`Hello, **${name}**!`),
-            text(`Your key is:`),
-            text(
-              'But you can edit the snap source code to make it do something, if you want to!',
-            ),
+          type: 'Alert',
+          content: panel([            
+            text('The thing that happened is...'),
           ]),
         },
       });
-
 
     default:
       throw new Error('Method not found.');

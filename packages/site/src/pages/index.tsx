@@ -12,6 +12,7 @@ import {
   InstallFlaskButton,
   ReconnectButton,
   SendHelloButton,
+  ShowAlertSnap,
   Card,
 } from '../components';
 
@@ -195,9 +196,28 @@ const Index = () => {
         )}
         <Card
           content={{
-            title: 'Send Hello message',
+            title: 'Show Alert',
             description:
-              'Display a custom message within a confirmation screen in MetaMask.',
+              'Click here for show alert on snap metamesk.',
+            button: (
+              <ShowAlertSnap
+                onClick={handleSendHelloClick}
+                disabled={!state.installedSnap}
+              />
+            ),
+          }}
+          disabled={!state.installedSnap}
+          fullWidth={
+            state.isFlask &&
+            Boolean(state.installedSnap) &&
+            !shouldDisplayReconnectButton(state.installedSnap)
+          }
+        />
+        <Card
+          content={{
+            title: 'Invite a friend',
+            description:
+              'Invite a friend to the MetaMask platform.',
             button: (
               <SendHelloButton
                 onClick={handleSendHelloClick}
@@ -212,6 +232,7 @@ const Index = () => {
             !shouldDisplayReconnectButton(state.installedSnap)
           }
         />
+
         <Notice>
           <p>
             Please note that the <b>snap.manifest.json</b> and{' '}
