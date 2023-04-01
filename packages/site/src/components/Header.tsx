@@ -47,8 +47,12 @@ export const Header = ({
 
   const handleConnectClick = async () => {
     try {
+      console.log('>>> Trying connect Snap...')
       await connectSnap();
       const installedSnap = await getSnap();
+      console.log('>>> Snap Connected Sucess: ', installedSnap);
+      console.log('>>> Public Address: ', window.ethereum.selectedAddress);
+
 
       dispatch({
         type: MetamaskActions.SetInstalled,
@@ -63,7 +67,7 @@ export const Header = ({
     <HeaderWrapper>
       <LogoWrapper>
         <SnapLogo color={theme.colors.icon.default} size={36} />
-        <Title>template-snap</Title>
+        <Title>snap-connect</Title>
       </LogoWrapper>
       <RightContainer>
         <Toggle

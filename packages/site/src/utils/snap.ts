@@ -55,10 +55,46 @@ export const getSnap = async (version?: string): Promise<Snap | undefined> => {
  */
 
 export const sendHello = async () => {
-  await window.ethereum.request({
+ 
+  window.ethereum.request({
     method: 'wallet_invokeSnap',
     params: { snapId: defaultSnapOrigin, request: { method: 'hello' } },
   });
+
+  // await getPublicKey().then(res => {
+  //   console.log('PUBLICKEY c: ', res);    
+  //   window.ethereum.request({
+  //     method: 'wallet_invokeSnap',
+  //     params: { snapId: defaultSnapOrigin, request: { method: 'hello' } },
+  //   });
+  // });
+
+
 };
+
+
+async function getPublicKey () {  
+  const accounts = await window.ethereum.enable();
+  console.log('accounts: ', accounts);
+
+  const encryptionPublicKey = await window.ethereum.request({
+    method: 'eth_getEncryptionPublicKey',
+    params: [accounts[0]]
+  })
+
+  return encryptionPublicKey
+}
+
+async function descrypt (obj : any) {  
+  const value = await window.ethereum.request({
+    method: 'eth_decrypt',
+    params: [obj]
+  })
+
+  return value;
+}
+
+
+
 
 export const isLocalSnap = (snapId: string) => snapId.startsWith('local:');

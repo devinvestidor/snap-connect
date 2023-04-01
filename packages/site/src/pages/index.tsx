@@ -104,8 +104,16 @@ const Index = () => {
 
   const handleConnectClick = async () => {
     try {
+
+
+      
+      console.log('>>> Trying connect Snap...')
       await connectSnap();
       const installedSnap = await getSnap();
+      console.log('>>> Snap Connected Sucess!')
+
+
+
 
       dispatch({
         type: MetamaskActions.SetInstalled,
@@ -128,11 +136,13 @@ const Index = () => {
 
   return (
     <Container>
-      <Heading>
-        Welcome to <Span>template-snap</Span>
+      <Heading>        
+        Welcome to <Span>snap-connect</Span>!
       </Heading>
       <Subtitle>
-        Get started by editing <code>src/index.ts</code>
+        { window.ethereum ? `Public Key: ${window.ethereum.selectedAddress}` : 
+        'Install MetaMask Flask and connect your wallet'}        
+        
       </Subtitle>
       <CardContainer>
         {state.error && (

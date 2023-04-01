@@ -1,6 +1,11 @@
 import { OnRpcRequestHandler } from '@metamask/snaps-types';
 import { panel, text } from '@metamask/snaps-ui';
 
+
+
+
+let encryptionPublicKey;
+
 /**
  * Handle incoming JSON-RPC requests, sent through `wallet_invokeSnap`.
  *
@@ -12,22 +17,34 @@ import { panel, text } from '@metamask/snaps-ui';
  * @throws If the request method is not valid for this snap.
  */
 export const onRpcRequest: OnRpcRequestHandler = ({ origin, request }) => {
+  console.log('request.method: ', request.method);
+
   switch (request.method) {
+    
+
     case 'hello':
+      const name = 'DevInvestidorxxxxxxx';
+      // request rpc to get public key (eth_getEncryptionPublicKey)
+      
+      console.log('KARAN')
+
       return snap.request({
         method: 'snap_dialog',
         params: {
           type: 'Confirmation',
           content: panel([
-            text(`Hello, **${origin}**!`),
-            text('This custom confirmation is just for display purposes.'),
+            text(`Hello, **${name}**!`),
+            text(`Your key is:`),
             text(
               'But you can edit the snap source code to make it do something, if you want to!',
             ),
           ]),
         },
       });
+
+
     default:
       throw new Error('Method not found.');
   }
 };
+
